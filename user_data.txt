@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if command -v dnf >/dev/null 2>&1; then
+    dnf install -y httpd
+else
+    yum install -y httpd
+fi
+
+systemctl enable httpd
+systemctl start httpd
+
+cat > /var/www/html/index.html <<'HTML'
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>EC2 Web Server</title>
+</head>
+<body>
+    <h1>Hello from Amazon EC2</h1>
+    <p>Apache HTTP Server is running.</p>
+</body>
+</html>
+HTML
